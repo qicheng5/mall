@@ -12,6 +12,7 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   <welcome-file-list>
+  	<welcome-file>http://www.baidu.com</welcome-file>
   	<welcome-file>login.jsp</welcome-file>
   	<welcome-file>index.jsp</welcome-file>
   	<welcome-file>product.jsp</welcome-file>
