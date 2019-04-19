@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping package="cn.domain">
+    	<class name="Product" table="product">
+    		<id name="product_id" >
+    			<generator class="assigned"></generator>
+    		</id>
+    		<property name="product_type"></property>
+    		<property name="product_price"></property>
+    		
+    		<!-- 多对多关系表达 -->
+    		<!-- 
+    			name属性：集合属性名
+    			table属性：配置中间表名
+    			key
+    				column属性：外键，别人引用我的外键
+    			many-to-many******class：我与哪个类是多对多关系
+    							  column：外键，我引用别人的外键列名
+    		 -->
+    	</class>
+    </hibernate-mapping>

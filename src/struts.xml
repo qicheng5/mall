@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+
+	
+	<package name="mall" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="LoginInterceptor"  class="cn.background.web.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="LoginInterceptor">
+					<param name="excludeMethods">execute</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	
+		<global-results>
+			<result name="toLogin" type="redirect">/login.jsp</result>
+		</global-results>
+	
+		<action name="LoginAction" class="cn.background.web.action.LoginAction" method="execute">
+			<result name="success">/index.jsp</result>
+		</action>
+	
+		<action name="ProductAction_*" class="cn.background.web.action.ProductAction" method="{1}">
+			<result name="success">/product.jsp</result>
+			<result name="list" type="redirectAction">
+				<param name="actionName">ProductAction_list</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		
+		<action name="ProductUploadAction" class="cn.background.web.action.ProductUploadAction" method="execute">
+			<!-- 指定（限制）上传文件的类型，定义局部拦截器，修改默认拦截器的属性 
+                "fileUpload.maximumSize" ：限制上传最大的文件大小。 
+                "fileUpload.allowedTypes"：允许上传文件的类型。 
+                "fileUpload.allowedExtensions"：允许上传文件的可扩展文件类型。 -->
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">500000000</param>
+                <param name="fileUpload.allowedTypes">image/jpeg</param>
+                <param name="fileUpload.allowedExtensions">.jpg</param>
+            </interceptor-ref>
+			
+			<result name="success" type="redirectAction">
+				<param name="actionName">ProductAction_add</param>
+				<param name="namespace">/</param>
+				<param name="product_id">${id}</param>
+				<param name="product_type">${type}</param>
+				<param name="product_price">${price}</param>
+			</result>
+		</action>
+		
+		<action name="UserAction" class="cn.background.web.action.UserAction" method="list">
+			<result name="success">/user.jsp</result>
+		</action>
+		
+		<action name="CommentAction" class="cn.background.web.action.CommentAction" method="list">
+			<result name="success">/comment.jsp</result>
+		</action>
+		
+		<action name="OrderAction_*" class="cn.background.web.action.OrderAction" method="{1}">
+			<result name="success">/order.jsp</result>
+		</action>
+	</package>
+</struts>

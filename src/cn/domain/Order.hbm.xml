@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping package="cn.domain">
+    	<class name="Order" table="orders">
+    		<id name="order_id" >
+    			<generator class="native"></generator>
+    		</id>
+    		<property name="user_id"></property>
+    		<property name="product_id"></property>
+    		<property name="status"></property>
+    		<property name="money"></property>
+    		<property name="number"></property>
+    		<property name="creat_time"></property>
+    		<property name="pay_time"></property>
+    		<property name="deliver_time"></property>
+    		
+    	</class>
+    </hibernate-mapping>
